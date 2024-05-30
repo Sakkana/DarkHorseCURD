@@ -7,10 +7,13 @@ import com.hmdp.entity.UserInfo;
 import com.hmdp.service.IUserInfoService;
 import com.hmdp.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -31,6 +34,8 @@ public class UserController {
     @Resource
     private IUserInfoService userInfoService;
 
+    private final Map<String, String> verificationCodes = new HashMap<>();;
+
     /**
      * 发送手机验证码
      */
@@ -38,7 +43,7 @@ public class UserController {
     public Result sendCode(@RequestParam("phone") String phone, HttpSession session) {
         // 发送短信验证码并保存验证码
         System.out.println("@/user/code 路由，进入userService.sendCode");
-        return userService.sendCode(phone, session);
+        return userService.sendCode(phone, session, verificationCodes);
     }
 
     /**
@@ -47,8 +52,9 @@ public class UserController {
      */
     @PostMapping("/login")
     public Result login(@RequestBody LoginFormDTO loginForm, HttpSession session){
-        // TODO 实现登录功能
-        return Result.fail("功能未完成");
+        // 实现登录功能
+        System.out.println("@/user/login 路由，进入userService.login");
+        return userService.login(loginForm, session, verificationCodes);
     }
 
     /**
