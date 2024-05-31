@@ -37,8 +37,6 @@ public class UserController {
     @Resource
     private IUserInfoService userInfoService;
 
-    private final Map<String, String> verificationCodes = new HashMap<>();;
-
     /**
      * 发送手机验证码
      */
@@ -46,7 +44,7 @@ public class UserController {
     public Result sendCode(@RequestParam("phone") String phone, HttpSession session) {
         // 发送短信验证码并保存验证码
         System.out.println("@/user/code 路由，进入userService.sendCode");
-        return userService.sendCode(phone, session, verificationCodes);
+        return userService.sendCode(phone, session);
     }
 
     /**
@@ -57,7 +55,7 @@ public class UserController {
     public Result login(@RequestBody LoginFormDTO loginForm, HttpSession session){
         // 实现登录功能
         System.out.println("@/user/login 路由，进入userService.login");
-        return userService.login(loginForm, session, verificationCodes);
+        return userService.login(loginForm, session);
     }
 
     /**

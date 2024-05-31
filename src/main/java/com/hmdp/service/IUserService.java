@@ -17,7 +17,7 @@ import java.util.Map;
  * @since 2021-12-22
  */
 public interface IUserService extends IService<User> {
-    Result sendCode(String phone, HttpSession session, Map<String, String> verificationCodes);
+    Result sendCode(String phone, HttpSession session);
 
-    Result login(LoginFormDTO loginForm, HttpSession session, Map<String, String> verificationCodes);
+    Result login(LoginFormDTO loginForm, HttpSession session);
 }

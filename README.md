@@ -64,3 +64,25 @@ http {
 
 ##### 2024.5.28
 手机号码校验与验证码生成。
+
+##### 2024.5.30
+登陆拦截器。
+
+配置 config.MvcConfig.addInterceptors 以及排除名单。
+
+配置 utils.LoginInterceptor，这个类`继承 HandlerInterceptor`，重载 `preHandle` 和 `afterCompletion`。
+
+##### 2024.5.31
+1. 使用 redis 代替 session 实现用户 token 的存储和更新服务。
+
+超过 30 分钟不登陆就从 redis 删除 token。
+
+刚登录的时候后台会生成一个 token：
+```java
+String code = RandomUtil.randomNumbers(6);
+```
+后面每次请求都会在 `authorization` 字段带上这个 token 鉴权。
+
+redis 的 String 和 Hash 数据结构。
+
+
