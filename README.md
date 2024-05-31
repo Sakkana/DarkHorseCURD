@@ -72,6 +72,8 @@ http {
 
 配置 utils.LoginInterceptor，这个类`继承 HandlerInterceptor`，重载 `preHandle` 和 `afterCompletion`。
 
+每个用户的信息都会保存到 ThreadLocal。
+
 ##### 2024.5.31
 1. 使用 redis 代替 session 实现用户 token 的存储和更新服务。
 
@@ -85,4 +87,11 @@ String code = RandomUtil.randomNumbers(6);
 
 redis 的 String 和 Hash 数据结构。
 
+2. 登录状态刷新优化
+
+拦截器拦截了部分和用户登陆有关的，但是排除了某些和用户状态无关的页面，比如首页。
+
+但是用户访问首页也仍然在保持登陆状态，如果不改逻辑，用户访问 30 分钟页面后 token 就会失效。
+
+解决方案：再加一个拦截器。
 
